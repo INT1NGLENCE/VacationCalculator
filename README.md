@@ -1,6 +1,6 @@
 # VacationCalculator
 
-Калькулятор отпускных. Приложение принимает среднюю зарплату за 12 месяцев и количество дней отпуска, а отвечает суммой отпускных, которые придут сотруднику.При запросе также можно указать точные дни ухода в отпуск, тогда проводиться рассчет отпускных с учётом праздников и выходных.
+Калькулятор отпускных. Приложение принимает среднюю зарплату за 12 месяцев и количество дней отпуска, а отвечает суммой отпускных, которые придут сотруднику. При запросе также можно указать точные дни ухода в отпуск, тогда проводиться рассчет отпускных с учётом праздников и выходных.
 
 # Использованные технологии
 * [Java](https://www.java.com/) – язык программирования
@@ -10,25 +10,26 @@
 
 # Как начать разработку?
 
-1. Сначала нужно скачать и установить DockerDekstop
+1. Сначала необходимо перейти по ссылке
 ```shell
-https://docker.qubitpi.org/desktop/install/windows-install/
+https://github.com/INT1NGLENCE/VacationCalculator
 ```
-2. Далее необходимо скачать Jdk amazoncorretto:19.0.2 для IntelligIdea
-3. Далее необходимо перейти по ссылке
-```shell
-https://github.com/INT1NGLENCE/Management_service
-```
-2. На открвышемся сайте нужно склоинровать репозиторий
-```shell
-#команда для терминала
-git clone https://github.com/INT1NGLENCE/Management_service.git
-```
-
+2. На открвышемся сайте нужно склоинровать репозиторий в IntelligIdea
 ```shell
 #URL для Get from Vcs
-https://github.com/INT1NGLENCE/Management_service.git
+https://github.com/INT1NGLENCE/VacationCalculator.git
 ```
+  Для этого необходимо:
+* При открытии приложения выбрать вкладку 
+```shell
+Get from VCS
+```
+* Во вкладку URL вставить URL репозитория:
+```shell
+#URL для Get from Vcs
+https://github.com/INT1NGLENCE/VacationCalculator.git
+```
+* Нажмите "Clone"
 3. Ждём полного клонирования репозитория и установки всех необходимых зависимостей для проекта
 
 4. Далее нам необходимо перейти в gradle, который находится в правой части IntelligIdea.
@@ -38,21 +39,31 @@ https://github.com/INT1NGLENCE/Management_service.git
 
 5. Ждём окончания комманды build.
 
-6. Проект готов.
-# Код
-
-RESTfullApi приложения - это система управление задачами
-
-* Обычная трёхслойная
-  архитектура – [Controller](src/main/java/management.system/controller), [Service](src/main/java/management.system/service), [Repository](src/main/java/management.system/repository)
-* Слой Repository реализован и на jdbcTemplate, и на JPA (Hibernate)
-* Написан [GlobalExceptionHandler](src/main/java/management.system/exception/GlobalExceptionHandler.java)
-  который умеет обрабатьвывать все необходимые для приложения исключения и прокидывать их в [ExceptionHandler](src/main/java/management.system/exception)
-* Настроена конфигурация [Spring Security](src/main/java/management.system/security)
-  которая отвечает за регистрация и аунтификацию пользователей для системы управления задачами
-* Настроена конфигурация [Swagger](src/main/management.system/swagger) для документации системы управления задачами
-
+6. Проект готов. 
+* Проверить работоспособность проект вы можете с помощью программы [Postman](https://www.postman.com/downloads/)(установите программу при её отсутсвии)
+* Для этого необходимо:
+1. Запустить приложение с помощью основного класса Main:
+* Перейдите в дерево проекта слева и найдите класс Main.
+* Нажмите на него правой кнопкой мыши и выберите "Run".(или же нажмите комбинацию клавиш --> Ctrl + Shift + F10)
+2. Дождитесь окончания компиляции проекта и перейдите в Postman, если ошибок не возникло:
+* В ссылочном поле выберите GET
+* Укажите ссылку
+```shell
+http://localhost:8080/calculate
+```
+* Далее выберите параметр "Body"
+* В параметре "Body" выберите "raw"
+* убедитесь, что стоит "JSON" и в появившемся окне напишите:
+```shell
+# 200 OK (результат вычисления)
+{
+  "averageSalary": 545000.0,
+  "vacationDays": 10,
+  "periodVacation": ["2024-09-09", "2024-09-22"]
+}
+```
 # Тесты
 Тесты покрывают все возможные сценарии работы приложения и написаны на все классы проекта
+* Mockito
 * MockMvc
 * JUnit5
